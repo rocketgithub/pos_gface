@@ -3,6 +3,7 @@ odoo.define('pos_gface.pos_gface', function (require) {
 
 var models = require('point_of_sale.models');
 var screens = require('point_of_sale.screens');
+var Model = require('web.DataModel');
 
 screens.ReceiptScreenWidget.include({
     print_web: function(){
@@ -26,7 +27,7 @@ screens.ReceiptScreenWidget.include({
         if (receipt.header) {
             ticket += receipt.header+"$intro$";
         }
-        ticket += widget.pos.sale_journal_address.street+"$intro$";
+        ticket += direccion+"$intro$";
         ticket += "NIT: "+widget.pos.company.vat+"$intro$";
         ticket += "Serie: "+serie+"$intro$";
         ticket += "Resolución: "+resolucion+"$intro$";
@@ -112,13 +113,6 @@ models.PosModel = models.PosModel.extend({
 
         this.flush_mutex.exec(function(){
             var done = new $.Deferred(); // holds the mutex
-
-            // send the order to the server
-            // we have a 30 seconds timeout on this push.
-            // FIXME: if the server takes more than 30 seconds to accept the order,
-            // the client will believe it wasn't successfully sent, and very bad
-            // things will happen as a duplicate will be sent next time
-            // so we must make sure the server detects and ignores duplicated orders
 
             var transfer = self._flush_orders([self.db.get_order(order_id)], {timeout:60000, to_invoice:true});
 
