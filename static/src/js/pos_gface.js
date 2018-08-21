@@ -5,7 +5,7 @@ var models = require('point_of_sale.models');
 var screens = require('point_of_sale.screens');
 var Model = require('web.DataModel');
 
-screens.ReceiptScreenWidget.include({
+screens.ReceiptScreenWidget.extend({
     print_web: function(){
         var order = this.pos.get_order();
 
