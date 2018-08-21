@@ -3,9 +3,9 @@ odoo.define('pos_gface.pos_gface', function (require) {
 
 var models = require('point_of_sale.models');
 var screens = require('point_of_sale.screens');
-var Model = require('web.DataModel');
+var rpc = require('web.rpc');
 
-screens.ReceiptScreenWidget.extend({
+screens.ReceiptScreenWidget.include({
     print_web: function(){
         var order = this.pos.get_order();
 
@@ -99,7 +99,7 @@ screens.ReceiptScreenWidget.extend({
     }
 })
 
-models.PosModel = models.PosModel.extend({
+models.PosModel = models.PosModel.include({
     push_and_invoice_order: function(order){
         var self = this;
         var invoiced = new $.Deferred();
@@ -126,9 +126,13 @@ models.PosModel = models.PosModel.extend({
                 var m = new Model("pos.order");
 
                 if (order_server_id.length > 0) {
-                    m.query(["firma_gface", "numero_gface"])
-                        .filter([['id', '=', order_server_id[0]]])
-                        .all().then(function (orders) {
+                    rpc.query({
+                            model: 'pos.order',
+                            method: 'search_read',
+                            args: [[['id', '=', order_server_id[0]]], ["firma_gface", "numero_gface"]],
+                        }, {
+                            timeout: 3000,
+                        }).then(function (orders) {
                             if (orders.length > 0) {
                                 self.get_order().firma_gface = orders[0].firma_gface
                                 self.get_order().numero_gface = orders[0].numero_gface
@@ -137,9 +141,13 @@ models.PosModel = models.PosModel.extend({
                             }
                         });
                 } else {
-                    m.query(["firma_gface", "numero_gface"])
-                        .filter([['pos_reference', '=', order.name]])
-                        .all().then(function (orders) {
+                    rpc.query({
+                            model: 'pos.order',
+                            method: 'search_read',
+                            args: [[['pos_reference', '=', order.name]], ["firma_gface", "numero_gface"]],
+                        }, {
+                            timeout: 3000,
+                        }).then(function (orders) {
                             if (orders.length > 0) {
                                 self.get_order().firma_gface = orders[0].firma_gface
                                 self.get_order().numero_gface = orders[0].numero_gface
