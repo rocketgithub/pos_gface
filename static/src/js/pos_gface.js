@@ -5,7 +5,7 @@ var models = require('point_of_sale.models');
 var screens = require('point_of_sale.screens');
 var rpc = require('web.rpc');
 
-screens.ReceiptScreenWidget.include({
+screens.ReceiptScreenWidget.extend({
     print_web: function(){
         var order = this.pos.get_order();
 
@@ -99,7 +99,7 @@ screens.ReceiptScreenWidget.include({
     }
 })
 
-models.PosModel = models.PosModel.include({
+models.PosModel = models.PosModel.extend({
     push_and_invoice_order: function(order){
         var self = this;
         var invoiced = new $.Deferred();
