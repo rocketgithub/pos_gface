@@ -16,12 +16,14 @@
                     <br />
                 </t>
                 <t t-if="widget.pos.sale_journal_address">
-                    <t t-esc="widget.pos.sale_journal_address.street"/><br />
+                    <t t-esc="widget.pos.sale_journal_address.street.slice(0, 32)"/><br />
+                    <t t-esc="widget.pos.sale_journal_address.street.slice(32, 64)"/><br />
+                    <t t-esc="widget.pos.sale_journal_address.street.slice(64)"/><br />
                 </t>
                 NIT: <t t-esc="widget.pos.company.vat"/><br />
-                Resolución: <t t-esc="widget.pos.sale_journal.numero_resolucion_gface"/><br />
+                Resolucion: <t t-esc="widget.pos.sale_journal.numero_resolucion_gface"/><br />
                 Del: <t t-esc="widget.pos.sale_journal.rango_inicial_gface"/> Al: <t t-esc="widget.pos.sale_journal.rango_final_gface"/><br />
-                Fecha Resolución: <t t-esc="widget.pos.sale_journal.fecha_resolucion_gface"/><br />
+                Fecha Resolucion: <t t-esc="widget.pos.sale_journal.fecha_resolucion_gface"/><br />
                 Serie: <t t-esc="widget.pos.sale_journal.serie_gface"/><br />
                 Factura No.: <t t-esc="order.numero_gface.replace(widget.pos.sale_journal.serie_gface, '')"/><br />
                 <br />
