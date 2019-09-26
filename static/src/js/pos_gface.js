@@ -127,13 +127,16 @@ models.PosModel = models.PosModel.extend({
                     rpc.query({
                             model: 'pos.order',
                             method: 'search_read',
-                            args: [[['id', '=', order_server_id[0]]], ["firma_gface", "numero_gface"]],
+                            args: [[['id', '=', order_server_id[0]]], ["firma_gface", "numero_gface", "firma_fel", "serie_fel", "numero_fel"]],
                         }, {
                             timeout: 3000,
                         }).then(function (orders) {
                             if (orders.length > 0) {
                                 self.get_order().firma_gface = orders[0].firma_gface
                                 self.get_order().numero_gface = orders[0].numero_gface
+                                self.get_order().numero_gface = orders[0].firma_fel
+                                self.get_order().numero_gface = orders[0].serie_fel
+                                self.get_order().numero_gface = orders[0].numero_fel
                                 invoiced.resolve();
                                 done.resolve();
                             }
