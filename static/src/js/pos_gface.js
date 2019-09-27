@@ -134,9 +134,9 @@ models.PosModel = models.PosModel.extend({
                             if (orders.length > 0) {
                                 self.get_order().firma_gface = orders[0].firma_gface
                                 self.get_order().numero_gface = orders[0].numero_gface
-                                self.get_order().numero_gface = orders[0].firma_fel
-                                self.get_order().numero_gface = orders[0].serie_fel
-                                self.get_order().numero_gface = orders[0].numero_fel
+                                self.get_order().firma_fel = orders[0].firma_fel
+                                self.get_order().serie_fel = orders[0].serie_fel
+                                self.get_order().numero_fel = orders[0].numero_fel
                                 invoiced.resolve();
                                 done.resolve();
                             }
