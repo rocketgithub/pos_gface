@@ -28,6 +28,10 @@
                     Serie: <t t-esc="widget.pos.sale_journal.serie_gface"/><br />
                     Factura No.: <t t-esc="order.numero_gface.replace(widget.pos.sale_journal.serie_gface, '')"/><br />
                 </t>
+                <t t-if="order.firma_fel">
+                    Serie: <t t-esc="order.serie_fel"/><br />
+                    Número: <t t-esc="order.numero_fel"/><br />
+                </t>
                 <br />
                 Fecha: <t t-esc="order.formatted_validation_date"/><br />
                 Usuario: <t t-esc="widget.pos.get_cashier().name"/><br />
