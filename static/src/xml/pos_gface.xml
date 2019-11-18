@@ -21,13 +21,6 @@
                     <t t-esc="widget.pos.sale_journal_address.street.slice(64)"/><br />
                 </t>
                 NIT: <t t-esc="widget.pos.company.vat"/><br />
-                <t t-if="order.firma_gface">
-                    Resolucion: <t t-esc="widget.pos.sale_journal.numero_resolucion_gface"/><br />
-                    Del: <t t-esc="widget.pos.sale_journal.rango_inicial_gface"/> Al: <t t-esc="widget.pos.sale_journal.rango_final_gface"/><br />
-                    Fecha Resolucion: <t t-esc="widget.pos.sale_journal.fecha_resolucion_gface"/><br />
-                    Serie: <t t-esc="widget.pos.sale_journal.serie_gface"/><br />
-                    Factura No.: <t t-esc="order.numero_gface.replace(widget.pos.sale_journal.serie_gface, '')"/><br />
-                </t>
                 <t t-if="order.firma_fel">
                     Serie: <t t-esc="order.serie_fel"/><br />
                     Número: <t t-esc="order.numero_fel"/><br />
@@ -125,15 +118,6 @@
                 </table>
                 Sujeto a pagos trimestrales ISR<br />
                 Agente de Retención del IVA<br />
-                <t t-if="order.firma_gface">
-                    Datos del GFACE<br />
-                    Guatefacturas, S.A.<br />
-                    NIT: 5640773-4<br />
-                    <t t-if="order.firma_gface">
-                        CAE: <t t-esc="order.firma_gface.slice(0, 32)"/><br />
-                        <t t-esc="order.firma_gface.slice(32)"/>
-                    </t>
-                </t>
                 <t t-if="order.firma_fel">
                     Certificador<br />
                     INFILE, S.A.<br />
@@ -152,6 +136,6 @@
                 </t>
             </div>
         </t>
-    </t>    
+    </t>
 
 </templates>
