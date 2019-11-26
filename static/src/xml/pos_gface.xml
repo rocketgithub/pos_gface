@@ -27,7 +27,7 @@
                 Fecha: <t t-esc="order.formatted_validation_date"/><br />
                 Usuario: <t t-esc="widget.pos.get_cashier().name"/><br />
                 <br />
-                NIT: <t t-esc="order.get_client().vat ? order.get_client().vat : ''"/><br />
+                NIT: <t t-esc="order.get_client().vat ? order.get_client().vat : 'CF'"/><br />
                 Nombre: <t t-esc="order.get_client().name"/><br />
                 <table class='receipt-orderlines'>
                     <colgroup>
