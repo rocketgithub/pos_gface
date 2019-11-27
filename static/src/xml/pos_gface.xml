@@ -3,7 +3,7 @@
 
     <t t-extend="PosTicket">
         <t t-jquery=".pos-sale-ticket" t-operation="replace">
-            <div class="pos-sale-ticket" style="font-size: 190%; padding: 2em">
+            <div class="pos-sale-ticket" style="font-size: 190%; zoom: 90%; position: relative; left: -1em">
 
                 <t t-esc="order.name"/><br />
                 <t t-esc="widget.pos.config.name"/><br />
@@ -16,36 +16,28 @@
                     <br />
                 </t>
                 <t t-if="widget.pos.sale_journal_address">
-                    <t t-esc="widget.pos.sale_journal_address.street.slice(0, 32)"/><br />
-                    <t t-esc="widget.pos.sale_journal_address.street.slice(32, 64)"/><br />
-                    <t t-esc="widget.pos.sale_journal_address.street.slice(64)"/><br />
+                    <t t-esc="widget.pos.sale_journal_address.street"/><br />
                 </t>
                 NIT: <t t-esc="widget.pos.company.vat"/><br />
-                <t t-if="order.firma_gface">
-                    Resolucion: <t t-esc="widget.pos.sale_journal.numero_resolucion_gface"/><br />
-                    Del: <t t-esc="widget.pos.sale_journal.rango_inicial_gface"/> Al: <t t-esc="widget.pos.sale_journal.rango_final_gface"/><br />
-                    Fecha Resolucion: <t t-esc="widget.pos.sale_journal.fecha_resolucion_gface"/><br />
-                    Serie: <t t-esc="widget.pos.sale_journal.serie_gface"/><br />
-                    Factura No.: <t t-esc="order.numero_gface.replace(widget.pos.sale_journal.serie_gface, '')"/><br />
-                </t>
                 <t t-if="order.firma_fel">
                     Serie: <t t-esc="order.serie_fel"/><br />
                     Número: <t t-esc="order.numero_fel"/><br />
                 </t>
                 <br />
+              
                 <div class="datos_factura">
                     Fecha: <t t-esc="order.formatted_validation_date"/><br />
                     Usuario: <t t-esc="widget.pos.get_cashier().name"/><br />
                     <br />
-                    NIT: <t t-esc="order.get_client().vat ? order.get_client().vat : ''"/><br />
+                    NIT: <t t-esc="order.get_client().vat ? order.get_client().vat : 'CF'"/><br />
                     Nombre: <t t-esc="order.get_client().name"/><br />
                 </div>
+
                 <table class='receipt-orderlines'>
                     <colgroup>
                         <col width='40%' />
                         <col width='25%' />
                         <col width='25%' />
-                        <col width='10%' />
                     </colgroup>
                     <tr t-foreach="orderlines" t-as="orderline">
                         <td>
@@ -67,9 +59,6 @@
                         <td class="pos-right-align">
                             <t t-esc="widget.format_currency(orderline.get_display_price())"/>
                         </td>
-                        <td class="pos-right-align">
-                            ---
-                        </td>
                     </tr>
                 </table>
                 <br />
@@ -77,15 +66,11 @@
                     <colgroup>
                         <col width='40%' />
                         <col width='40%' />
-                        <col width='10%' />
                     </colgroup>
                     <tr class="emph">
                         <td>Total:</td>
                         <td class="pos-right-align">
                             <t t-esc="widget.format_currency(order.get_total_with_tax())"/>
-                        </td>
-                        <td class="pos-right-align">
-                            ---
                         </td>
                     </tr>
                 </table>
@@ -95,7 +80,6 @@
                         <colgroup>
                             <col width='40%' />
                             <col width='40%' />
-                            <col width='10%' />
                         </colgroup>
                         <tr>
                             <td>
@@ -103,9 +87,6 @@
                             </td>
                             <td class="pos-right-align">
                                 <t t-esc="widget.format_currency(line.get_amount())"/>
-                            </td>
-                            <td class="pos-right-align">
-                                ---
                             </td>
                         </tr>
                     </t>
@@ -115,29 +96,16 @@
                     <colgroup>
                         <col width='40%' />
                         <col width='40%' />
-                        <col width='10%' />
                     </colgroup>
                     <tr>
                         <td>Cambio:</td>
                         <td class="pos-right-align">
                             <t t-esc="widget.format_currency(order.get_change())"/>
                         </td>
-                        <td class="pos-right-align">
-                            --
-                        </td>
                     </tr>
                 </table>
                 Sujeto a pagos trimestrales ISR<br />
                 Agente de Retención del IVA<br />
-                <t t-if="order.firma_gface">
-                    Datos del GFACE<br />
-                    Guatefacturas, S.A.<br />
-                    NIT: 5640773-4<br />
-                    <t t-if="order.firma_gface">
-                        CAE: <t t-esc="order.firma_gface.slice(0, 32)"/><br />
-                        <t t-esc="order.firma_gface.slice(32)"/>
-                    </t>
-                </t>
                 <t t-if="order.firma_fel">
                     Certificador<br />
                     INFILE, S.A.<br />
