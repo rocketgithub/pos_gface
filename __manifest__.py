@@ -11,6 +11,8 @@
     'author': 'Rodrigo Fernandez',
     'depends': ['point_of_sale', 'account'],
     'data': [
+        'views/report.xml',
+        'views/pos_order_ticket.xml',
         'views/templates.xml',
     ],
     'qweb': [

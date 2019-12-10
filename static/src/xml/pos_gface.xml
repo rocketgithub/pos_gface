@@ -25,7 +25,6 @@
                     Número: <t t-esc="order.numero_fel"/><br />
                 </t>
                 <br />
-
                 <div class="datos_factura">
                     Fecha: <t t-esc="order.formatted_validation_date"/><br />
                     Usuario: <t t-esc="widget.pos.get_cashier().name"/><br />
