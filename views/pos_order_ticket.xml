@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_pos_order_ticket">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="article">
+                    <div class="header">
+                    </div>
+                    <div class="page">
+                        <p>
+                            <span t-field="o.name"/><br/>
+                            <span t-field="o.config_id.name"/><br/>
+                            <br/>
+                            <span t-field="o.company_id.name"/><br/>
+                            <t t-if="o.config_id.receipt_header">
+                                <span t-field="o.config_id.receipt_header"/><br/>
+                            </t>
+                            <span t-field="o.invoice_id.journal_id.direccion.street"/><br/>
+                            NIT: <span t-field="o.company_id.vat"/><br/>
+                            <t t-if="o.firma_fel">
+                                Serie: <span t-field="o.serie_fel"/><br/>
+                                Número: <span t-field="o.numero_fel"/><br/>
+                            </t>
+                            <br/>
+                            Fecha: <span t-field="o.date_order"/><br/>
+                            Usuario: <span t-field="o.user_id.name"/><br/>
+                            <br/>
+                            <t t-if="not (o.partner_id.vat and (o.partner_id.vat == 'CF' or o.partner_id.vat == 'C/F'))">
+                                NIT: <span t-field="o.partner_id.vat"/><br/>
+                                Nombre: <span t-field="o.partner_id.name"/><br/>
+                                Dir: <span t-field="o.partner_id.street"/><br/>
+                            </t>
+                            <t t-foreach="o.lines" t-as="l">
+                                <div>
+                                    <span t-field="l.product_id.name"/> <span t-field="l.qty"/> <span t-esc="l.price_unit * l.qty" t-options='{"widget": "monetary", "display_currency": user.company_id.currency_id}'/><br/>
+                                </div>
+                                <div>
+                                    <t t-foreach="l.pack_lot_ids" t-as="lot">
+                                        <span t-esc="lot.lot_name"/><br/>
+                                    </t>
+                                </div>
+                            </t>
+                            Total: <span t-field="o.amount_total" t-options='{"widget": "monetary", "display_currency": user.company_id.currency_id}'/><br/>
+                            <t t-foreach="o.statement_ids" t-as="l">
+                                <span t-field="l.journal_id.name"/>: <span t-field="l.amount" t-options='{"widget": "monetary", "display_currency": user.company_id.currency_id}'/><br/>
+                            </t>
+                            Cambio: <span t-esc="0.00" t-options='{"widget": "monetary", "display_currency": user.company_id.currency_id}'/><br/>
+                            Sujeto a pagos trimestrales ISR<br />
+                            Agente de Retención del IVA<br />
+                            <t t-if="o.firma_fel">
+                                Certificador<br />
+                                INFILE, S.A.<br />
+                                NIT: 12521337<br />
+                                <t t-if="o.firma_fel">
+                                    Autorización: <t t-esc="o.firma_fel"/><br />
+                                </t>
+                                Fecha Certificación: <t t-esc="o.date_order"/>
+                            </t>
+                            <t t-if="o.config_id.receipt_footer">
+                                <span t-field="o.config_id.receipt_footer"/><br/>
+                            </t>
+                        </p>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>
