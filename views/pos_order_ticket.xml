@@ -15,6 +15,7 @@
                             <t t-if="o.config_id.receipt_header">
                                 <span t-field="o.config_id.receipt_header"/><br/>
                             </t>
+                            <span t-field="o.invoice_id.journal_id.direccion.name"/><br/>
                             <span t-field="o.invoice_id.journal_id.direccion.street"/><br/>
                             NIT: <span t-field="o.company_id.vat"/><br/>
                             <t t-if="o.firma_fel">
