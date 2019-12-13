@@ -3,7 +3,7 @@
 
     <t t-extend="PosTicket">
         <t t-jquery=".pos-sale-ticket" t-operation="replace">
-            <div class="pos-sale-ticket" style="font-size: 190%; zoom: 90%; position: relative; left: 1.1em">
+            <div t-if="order.firma_fel" class="pos-sale-ticket" style="font-size: 190%; zoom: 90%; position: relative; left: -1em">
 
                 <t t-esc="order.name"/><br />
                 <t t-esc="widget.pos.config.name"/><br />
@@ -16,7 +16,6 @@
                     <br />
                 </t>
                 <t t-if="widget.pos.sale_journal_address">
-                    <t t-esc="widget.pos.sale_journal_address.name"/><br />
                     <t t-esc="widget.pos.sale_journal_address.street"/><br />
                 </t>
                 NIT: <t t-esc="widget.pos.company.vat"/><br />
@@ -27,11 +26,14 @@
                 <div class="datos_factura">
                     Fecha: <t t-esc="order.formatted_validation_date"/><br />
                     Usuario: <t t-esc="widget.pos.get_cashier().name"/><br />
+                    <t t-if="employee_id">
+                        Empleado: <span t-field="o.employee_id.name"/><br/>
+                    </t>
                     <br />
                     NIT: <t t-esc="order.get_client().vat ? order.get_client().vat : 'CF'"/><br />
                     Nombre: <t t-esc="order.get_client().name"/><br />
+                    Dirección: <span t-field="order.get_client().street"/><br/>
                 </div>
-
                 <table class='receipt-orderlines'>
                     <colgroup>
                         <col width='40%' />
@@ -47,8 +49,13 @@
                                 </div>
                             </t>
                             <div class="linea_extras">
-                                <t t-if="orderline.get_note()">
+                                <t t-if="orderline.get_note &amp;&amp; orderline.get_note()">
                                     <span t-esc="orderline.get_note()"/>
+                                </t>
+                                <t t-if="orderline.pack_lot_lines">
+                                    <t t-foreach="orderline.pack_lot_lines.models" t-as="linea">
+                                        <span t-esc="linea.attributes['lot_name']"/><br/>
+                                    </t>
                                 </t>
                             </div>
                         </td>
@@ -105,16 +112,11 @@
                 </table>
                 Sujeto a pagos trimestrales ISR<br />
                 Agente de Retención del IVA<br />
-                <t t-if="order.firma_fel">
-                    Certificador<br />
-                    INFILE, S.A.<br />
-                    NIT: 12521337<br />
-                    <t t-if="order.firma_fel">
-                        Autorización: <t t-esc="order.firma_fel"/><br />
-                    </t>
-                    Fecha Certificación: <t t-esc="order.formatted_validation_date"/>
-                </t>
-
+                Certificador<br />
+                INFILE, S.A.<br />
+                NIT: 12521337<br />
+                Autorización: <t t-esc="order.firma_fel"/><br />
+                Fecha Certificación: <t t-esc="order.formatted_validation_date"/>
                 <t t-if="receipt.footer">
                     <br />
                     <div style='text-align:center'>
