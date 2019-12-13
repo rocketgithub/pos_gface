@@ -19,10 +19,9 @@
                     <t t-esc="widget.pos.sale_journal_address.street"/><br />
                 </t>
                 NIT: <t t-esc="widget.pos.company.vat"/><br />
-                <t t-if="order.firma_fel">
-                    Serie: <t t-esc="order.serie_fel"/><br />
-                    Número: <t t-esc="order.numero_fel"/><br />
-                </t>
+                <br />
+                Serie: <t t-esc="order.serie_fel"/><br />
+                Número: <t t-esc="order.numero_fel"/><br />
                 <br />
                 <div class="datos_factura">
                     Fecha: <t t-esc="order.formatted_validation_date"/><br />

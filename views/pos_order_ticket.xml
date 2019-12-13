@@ -29,7 +29,7 @@
                             <t t-if="not (o.partner_id.vat and (o.partner_id.vat == 'CF' or o.partner_id.vat == 'C/F'))">
                                 NIT: <span t-field="o.partner_id.vat"/><br/>
                                 Nombre: <span t-field="o.partner_id.name"/><br/>
-                                Dir: <span t-field="o.partner_id.street"/><br/>
+                                Dirección: <span t-field="o.partner_id.street"/><br/>
                             </t>
                             <t t-foreach="o.lines" t-as="l">
                                 <div>
