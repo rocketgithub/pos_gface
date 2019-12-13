@@ -25,37 +25,90 @@
                             <br/>
                             Fecha: <span t-field="o.date_order"/><br/>
                             Usuario: <span t-field="o.user_id.name"/><br/>
+                            <t t-if="o.empleado_id">
+                                Empleado: <span t-field="o.empleado_id.name"/><br/>
+                            </t>
                             <br/>
-                            <t t-if="not (o.partner_id.vat and (o.partner_id.vat == 'CF' or o.partner_id.vat == 'C/F'))">
+                            <t>
                                 NIT: <span t-field="o.partner_id.vat"/><br/>
                                 Nombre: <span t-field="o.partner_id.name"/><br/>
                                 Dir: <span t-field="o.partner_id.street"/><br/>
                             </t>
-                            <t t-foreach="o.lines" t-as="l">
-                                <div>
-                                    <span t-field="l.product_id.name"/> <span t-field="l.qty"/> <span t-esc="l.price_unit * l.qty" t-options='{"widget": "monetary", "display_currency": user.company_id.currency_id}'/><br/>
-                                </div>
-                                <div>
-                                    <t t-foreach="l.pack_lot_ids" t-as="lot">
-                                        <span t-esc="lot.lot_name"/><br/>
-                                    </t>
-                                </div>
-                            </t>
-                            Total: <span t-field="o.amount_total" t-options='{"widget": "monetary", "display_currency": user.company_id.currency_id}'/><br/>
-                            <t t-foreach="o.statement_ids" t-as="l">
-                                <span t-field="l.journal_id.name"/>: <span t-field="l.amount" t-options='{"widget": "monetary", "display_currency": user.company_id.currency_id}'/><br/>
-                            </t>
-                            Cambio: <span t-esc="0.00" t-options='{"widget": "monetary", "display_currency": user.company_id.currency_id}'/><br/>
-                            Sujeto a pagos trimestrales ISR<br />
-                            Agente de Retención del IVA<br />
-                            <t t-if="o.firma_fel">
-                                Certificador<br />
-                                INFILE, S.A.<br />
-                                NIT: 12521337<br />
-                                <t t-if="o.firma_fel">
-                                    Autorización: <t t-esc="o.firma_fel"/><br />
+                            <table width="100%">
+                                <colgroup>
+                                    <col width="50%"/>
+                                    <col width="25%"/>
+                                    <col width="25%"/>
+                                </colgroup>
+                                <tr t-foreach="o.lines" t-as="l">
+                                    <td>
+                                        <t t-esc="l.product_id.name"/>
+                                        <div class="linea_extras">
+                                            <t t-foreach="l.pack_lot_ids" t-as="lot">
+                                                <span t-esc="lot.lot_name"/><br/>
+                                            </t>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="l.qty"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="l.price_unit * l.qty" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: user.company_id.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table width="100%">
+                                <colgroup>
+                                    <col width="50%"/>
+                                    <col width="50%"/>
+                                </colgroup>
+                                <tr>
+                                    <td>Total:</td>
+                                    <td class="text-right">
+                                        <span t-field="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: user.company_id.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table width="100%">
+                                <t t-foreach="o.statement_ids" t-as="l">
+                                    <colgroup>
+                                        <col width="50%"/>
+                                        <col width="50%"/>
+                                    </colgroup>
+                                    <tr>
+                                        <td>
+                                            <span t-field="l.journal_id.name"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="l.amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: user.company_id.currency_id}"/>
+                                        </td>
+                                    </tr>
                                 </t>
-                                Fecha Certificación: <t t-esc="o.date_order"/>
+                            </table>
+                            <br/>
+                            <table width="100%">
+                                <colgroup>
+                                    <col width="50%"/>
+                                    <col width="50%"/>
+                                </colgroup>
+                                <tr>
+                                    <td>Cambio:</td>
+                                    <td class="pos-right-align">
+                                        <span t-esc="0.00" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: user.company_id.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            Sujeto a pagos trimestrales ISR<br/>
+                            Agente de Retención del IVA<br/>
+                            <t t-if="o.firma_fel">
+                                Certificador<br/>
+                                INFILE, S.A.<br/>
+                                NIT: 12521337<br/>
+                                <t t-if="o.firma_fel">
+                                    Autorización: <t t-esc="o.firma_fel"/><br/>
+                                </t>
+                                Fecha Certificación: <t t-esc="o.date_order"/>
                             </t>
                             <t t-if="o.config_id.receipt_footer">
                                 <span t-field="o.config_id.receipt_footer"/><br/>
