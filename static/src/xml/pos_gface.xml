@@ -3,7 +3,7 @@
 
     <t t-extend="PosTicket">
         <t t-jquery=".pos-sale-ticket" t-operation="replace">
-            <div t-if="order.firma_fel" class="pos-sale-ticket" style="font-size: 190%; zoom: 90%; position: relative; left: -1em">
+            <div class="pos-sale-ticket" style="font-size: 190%; zoom: 90%; position: relative; left: -1em">
 
                 <t t-esc="order.name"/><br />
                 <t t-esc="widget.pos.config.name"/><br />
@@ -20,8 +20,8 @@
                 </t>
                 NIT: <t t-esc="widget.pos.company.vat"/><br />
                 <br />
-                Serie: <t t-esc="order.serie_fel"/><br />
-                Número: <t t-esc="order.numero_fel"/><br />
+                Serie: <t t-esc="order.serie_fel || ''"/><br />
+                Número: <t t-esc="order.numero_fel || ''"/><br />
                 <br />
                 <div class="datos_factura">
                     Fecha: <t t-esc="order.formatted_validation_date"/><br />
@@ -115,7 +115,7 @@
                 Certificador<br />
                 INFILE, S.A.<br />
                 NIT: 12521337<br />
-                Autorización: <t t-esc="order.firma_fel"/><br />
+                Autorización: <t t-esc="order.firma_fel || ''"/><br />
                 Fecha Certificación: <t t-esc="order.formatted_validation_date"/>
                 <t t-if="receipt.footer">
                     <br />
