@@ -5,34 +5,36 @@
         <t t-jquery=".pos-sale-ticket" t-operation="replace">
             <div class="pos-sale-ticket" style="font-size: 190%; zoom: 90%; position: relative; left: 1.2em">
 
-                <t t-esc="order.name"/><br />
-                <t t-esc="widget.pos.config.name"/><br />
-                <br />
-                <t t-esc="widget.pos.company.name"/><br />
+                <t t-esc="order.name"/><br/>
+                <t t-esc="widget.pos.config.name"/><br/>
+                <br/>
+                <t t-esc="widget.pos.company.name"/><br/>
+                NIT: <t t-esc="widget.pos.company.vat"/><br/>
                 <t t-if="receipt.header">
                     <div style='text-align:center'>
                         <t t-esc="receipt.header" />
                     </div>
-                    <br />
+                    <br/>
                 </t>
                 <t t-if="widget.pos.sale_journal_address">
-                    <t t-esc="widget.pos.sale_journal_address.name"/><br />
-                    <t t-esc="widget.pos.sale_journal_address.street"/><br />
+                    <t t-esc="widget.pos.sale_journal_address.name"/><br/>
+                    <t t-esc="widget.pos.sale_journal_address.street"/><br/>
                 </t>
-                NIT: <t t-esc="widget.pos.company.vat"/><br />
-                <br />
-                Serie: <t t-esc="order.serie_fel || ''"/><br />
-                Número: <t t-esc="order.numero_fel || ''"/><br />
-                <br />
+                <br/>
+                Documento Tributario Electrónico FEL
+                Factura Electrónica
+                Serie: <t t-esc="order.serie_fel || ''"/><br/>
+                Número: <t t-esc="order.numero_fel || ''"/><br/>
+                <br/>
                 <div class="datos_factura">
-                    Fecha: <t t-esc="order.formatted_validation_date"/><br />
-                    Usuario: <t t-esc="widget.pos.get_cashier().name"/><br />
+                    Fecha: <t t-esc="order.formatted_validation_date"/><br/>
+                    Usuario: <t t-esc="widget.pos.get_cashier().name"/><br/>
                     <t t-if="employee_id">
                         Empleado: <span t-field="o.employee_id.name"/><br/>
                     </t>
-                    <br />
-                    NIT: <t t-esc="order.get_client().vat ? order.get_client().vat : 'CF'"/><br />
-                    Nombre: <t t-esc="order.get_client().name"/><br />
+                    <br/>
+                    NIT: <t t-esc="order.get_client().vat ? order.get_client().vat : 'CF'"/><br/>
+                    Nombre: <t t-esc="order.get_client().name"/><br/>
                     Dirección: <span t-field="order.get_client().street"/><br/>
                 </div>
                 <table class='receipt-orderlines'>
@@ -68,7 +70,7 @@
                         </td>
                     </tr>
                 </table>
-                <br />
+                <br/>
                 <table class='receipt-total'>
                     <colgroup>
                         <col width='40%' />
@@ -81,7 +83,7 @@
                         </td>
                     </tr>
                 </table>
-                <br />
+                <br/>
                 <table class='receipt-paymentlines'>
                     <t t-foreach="paymentlines" t-as="line">
                         <colgroup>
@@ -98,7 +100,7 @@
                         </tr>
                     </t>
                 </table>
-                <br />
+                <br/>
                 <table class='receipt-change'>
                     <colgroup>
                         <col width='40%' />
@@ -111,15 +113,15 @@
                         </td>
                     </tr>
                 </table>
-                Sujeto a pagos trimestrales ISR<br />
-                Agente de Retención del IVA<br />
-                Certificador<br />
-                INFILE, S.A.<br />
-                NIT: 12521337<br />
-                Autorización: <t t-esc="order.firma_fel || ''"/><br />
+                Sujeto a pagos trimestrales ISR<br/>
+                Agente de Retención del IVA<br/>
+                Certificador<br/>
+                INFILE, S.A.<br/>
+                NIT: 12521337<br/>
+                Autorización: <t t-esc="order.firma_fel || ''"/><br/>
                 Fecha Certificación: <t t-esc="order.formatted_validation_date"/>
                 <t t-if="receipt.footer">
-                    <br />
+                    <br/>
                     <div style='text-align:center'>
                         <t t-esc="receipt.footer" />
                     </div>
