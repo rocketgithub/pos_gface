@@ -3,7 +3,7 @@
 
     <t t-extend="PosTicket">
         <t t-jquery=".pos-sale-ticket" t-operation="replace">
-            <div class="pos-sale-ticket" style="font-size: 190%; zoom: 90%; position: relative; left: -1em">
+            <div class="pos-sale-ticket" style="font-size: 190%; zoom: 90%; position: relative; left: 1.2em">
 
                 <t t-esc="order.name"/><br />
                 <t t-esc="widget.pos.config.name"/><br />
@@ -16,6 +16,7 @@
                     <br />
                 </t>
                 <t t-if="widget.pos.sale_journal_address">
+                    <t t-esc="widget.pos.sale_journal_address.name"/><br />
                     <t t-esc="widget.pos.sale_journal_address.street"/><br />
                 </t>
                 NIT: <t t-esc="widget.pos.company.vat"/><br />
