@@ -21,8 +21,8 @@
                     <t t-esc="widget.pos.sale_journal_address.street"/><br/>
                 </t>
                 <br/>
-                Documento Tributario Electrónico FEL
-                Factura Electrónica
+                Documento Tributario Electrónico FEL<br/>
+                Factura Electrónica<br/>
                 Serie: <t t-esc="order.serie_fel || ''"/><br/>
                 Número: <t t-esc="order.numero_fel || ''"/><br/>
                 <br/>
