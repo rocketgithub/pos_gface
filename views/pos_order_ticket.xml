@@ -7,7 +7,6 @@
                     <div class="header">
                     </div>
                     <div class="page">
-                        <span t-field="o.name"/><br/>
                         <span t-field="o.config_id.name"/><br/>
                         <br/>
                         <span t-field="o.company_id.name"/><br/>
@@ -101,6 +100,7 @@
                         NIT: 12521337<br/>
                         Autorización: <t t-esc="o.firma_fel"/><br/>
                         Fecha Certificación: <t t-esc="o.date_order"/>
+                        <span t-field="o.name"/><br/>
                         <t t-if="o.config_id.receipt_footer">
                             <br />
                             <span t-field="o.config_id.receipt_footer"/><br/>
