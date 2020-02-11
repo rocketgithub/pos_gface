@@ -25,9 +25,6 @@
                         <br/>
                         Fecha: <span t-field="o.date_order"/><br/>
                         Usuario: <span t-field="o.user_id.name"/><br/>
-                        <t t-if="o.empleado_id">
-                            Empleado: <span t-field="o.empleado_id.name"/><br/>
-                        </t>
                         <br/>
                         <t>
                             NIT: <span t-field="o.partner_id.vat"/><br/>
