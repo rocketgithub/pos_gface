@@ -7,106 +7,110 @@
                     <div class="header">
                     </div>
                     <div class="page">
-                        <span t-field="o.config_id.name"/><br/>
-                        <br/>
-                        <span t-field="o.company_id.name"/><br/>
-                        NIT: <span t-field="o.company_id.vat"/><br/>
-                        <t t-if="o.config_id.receipt_header">
-                            <span t-field="o.config_id.receipt_header"/><br/>
-                        </t>
-                        <span t-field="o.invoice_id.journal_id.direccion.name"/><br/>
-                        <span t-field="o.invoice_id.journal_id.direccion.street"/><br/>
-                        <br/>
-                        Documento Tributario Electrónico FEL<br/>
-                        Factura Electrónica<br/>
-                        <br/>
-                        Serie: <span t-field="o.serie_fel"/><br/>
-                        Número: <span t-field="o.numero_fel"/><br/>
-                        <br/>
-                        Fecha: <span t-field="o.date_order"/><br/>
-                        Usuario: <span t-field="o.user_id.name"/><br/>
-                        <br/>
-                        <t>
-                            NIT: <span t-field="o.partner_id.vat"/><br/>
-                            Nombre: <span t-field="o.partner_id.name"/><br/>
-                            Dirección: <span t-field="o.partner_id.street"/><br/>
-                        </t>
-                        <table width="100%">
-                            <colgroup>
-                                <col width="50%"/>
-                                <col width="25%"/>
-                                <col width="25%"/>
-                            </colgroup>
-                            <tr t-foreach="o.lines" t-as="l">
-                                <td>
-                                    <t t-esc="l.product_id.name"/>
-                                    <div class="linea_extras">
-                                        <t t-foreach="l.pack_lot_ids" t-as="lot">
-                                            <span t-esc="lot.lot_name"/><br/>
-                                        </t>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    <t t-esc="l.qty"/>
-                                </td>
-                                <td class="text-right">
-                                    <t t-esc="l.price_unit * l.qty" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: user.company_id.currency_id}"/>
-                                </td>
-                            </tr>
-                        </table>
-                        <table width="100%">
-                            <colgroup>
-                                <col width="50%"/>
-                                <col width="50%"/>
-                            </colgroup>
-                            <tr>
-                                <td>Total:</td>
-                                <td class="text-right">
-                                    <span t-field="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: user.company_id.currency_id}"/>
-                                </td>
-                            </tr>
-                        </table>
-                        <br/>
-                        <table width="100%">
-                            <t t-foreach="o.statement_ids" t-as="l">
+                        <t t-if="o.firma_fel">
+
+                            <span t-field="o.config_id.name"/><br/>
+                            <br/>
+                            <span t-field="o.company_id.name"/><br/>
+                            NIT: <span t-field="o.company_id.vat"/><br/>
+                            <t t-if="o.config_id.receipt_header">
+                                <span t-field="o.config_id.receipt_header"/><br/>
+                            </t>
+                            <span t-field="o.invoice_id.journal_id.direccion.name"/><br/>
+                            <span t-field="o.invoice_id.journal_id.direccion.street"/><br/>
+                            <br/>
+                            Documento Tributario Electrónico FEL<br/>
+                            Factura Electrónica<br/>
+                            <br/>
+                            Serie: <span t-field="o.serie_fel"/><br/>
+                            Número: <span t-field="o.numero_fel"/><br/>
+                            <br/>
+                            Fecha: <span t-field="o.date_order"/><br/>
+                            Usuario: <span t-field="o.user_id.name"/><br/>
+                            <br/>
+                            <t>
+                                NIT: <span t-field="o.partner_id.vat"/><br/>
+                                Nombre: <span t-field="o.partner_id.name"/><br/>
+                                Dirección: <span t-field="o.partner_id.street"/><br/>
+                            </t>
+                            <table width="100%">
+                                <colgroup>
+                                    <col width="50%"/>
+                                    <col width="25%"/>
+                                    <col width="25%"/>
+                                </colgroup>
+                                <tr t-foreach="o.lines" t-as="l">
+                                    <td>
+                                        <t t-esc="l.product_id.name"/>
+                                        <div class="linea_extras">
+                                            <t t-foreach="l.pack_lot_ids" t-as="lot">
+                                                <span t-esc="lot.lot_name"/><br/>
+                                            </t>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="l.qty"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="l.price_unit * l.qty" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: user.company_id.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table width="100%">
                                 <colgroup>
                                     <col width="50%"/>
                                     <col width="50%"/>
                                 </colgroup>
                                 <tr>
-                                    <td>
-                                        <span t-field="l.journal_id.name"/>
-                                    </td>
+                                    <td>Total:</td>
                                     <td class="text-right">
-                                        <span t-field="l.amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: user.company_id.currency_id}"/>
+                                        <span t-field="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: user.company_id.currency_id}"/>
                                     </td>
                                 </tr>
+                            </table>
+                            <br/>
+                            <table width="100%">
+                                <t t-foreach="o.statement_ids" t-as="l">
+                                    <colgroup>
+                                        <col width="50%"/>
+                                        <col width="50%"/>
+                                    </colgroup>
+                                    <tr>
+                                        <td>
+                                            <span t-field="l.journal_id.name"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="l.amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: user.company_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                            <br/>
+                            <table width="100%">
+                                <colgroup>
+                                    <col width="50%"/>
+                                    <col width="50%"/>
+                                </colgroup>
+                                <tr>
+                                    <td>Cambio:</td>
+                                    <td class="pos-right-align">
+                                        <span t-esc="0.00" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: user.company_id.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            Sujeto a pagos trimestrales ISR<br/>
+                            Agente de Retención del IVA<br/>
+                            Certificador<br/>
+                            INFILE, S.A.<br/>
+                            NIT: 12521337<br/>
+                            Autorización: <t t-esc="o.firma_fel"/><br/>
+                            Fecha Certificación: <t t-esc="o.date_order"/>
+                            <span t-field="o.name"/><br/>
+                            <t t-if="o.config_id.receipt_footer">
+                                <br />
+                                <span t-field="o.config_id.receipt_footer"/><br/>
                             </t>
-                        </table>
-                        <br/>
-                        <table width="100%">
-                            <colgroup>
-                                <col width="50%"/>
-                                <col width="50%"/>
-                            </colgroup>
-                            <tr>
-                                <td>Cambio:</td>
-                                <td class="pos-right-align">
-                                    <span t-esc="0.00" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: user.company_id.currency_id}"/>
-                                </td>
-                            </tr>
-                        </table>
-                        Sujeto a pagos trimestrales ISR<br/>
-                        Agente de Retención del IVA<br/>
-                        Certificador<br/>
-                        INFILE, S.A.<br/>
-                        NIT: 12521337<br/>
-                        Autorización: <t t-esc="o.firma_fel"/><br/>
-                        Fecha Certificación: <t t-esc="o.date_order"/>
-                        <span t-field="o.name"/><br/>
-                        <t t-if="o.config_id.receipt_footer">
-                            <br />
-                            <span t-field="o.config_id.receipt_footer"/><br/>
+
                         </t>
                     </div>
                 </div>

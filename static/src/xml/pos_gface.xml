@@ -4,127 +4,130 @@
     <t t-extend="PosTicket">
         <t t-jquery=".pos-sale-ticket" t-operation="replace">
             <div class="pos-sale-ticket" style="font-size: 190%; zoom: 90%; position: relative; left: 1.2em">
+                <t t-if="order.firma_fel">
 
-                <t t-esc="widget.pos.config.name"/><br/>
-                <br/>
-                <t t-esc="widget.pos.company.name"/><br/>
-                NIT: <t t-esc="widget.pos.company.vat"/><br/>
-                <t t-if="receipt.header">
-                    <div style='text-align:center'>
-                        <t t-esc="receipt.header" />
-                    </div>
+                    <t t-esc="widget.pos.config.name"/><br/>
                     <br/>
-                </t>
-                <t t-if="widget.pos.sale_journal_address">
-                    <t t-esc="widget.pos.sale_journal_address.name"/><br/>
-                    <t t-esc="widget.pos.sale_journal_address.street"/><br/>
-                </t>
-                <br/>
-                Documento Tributario Electrónico FEL<br/>
-                Factura Electrónica<br/>
-                Serie: <t t-esc="order.serie_fel || ''"/><br/>
-                Número: <t t-esc="order.numero_fel || ''"/><br/>
-                <br/>
-                <div class="datos_factura">
-                    Fecha: <t t-esc="order.formatted_validation_date"/><br/>
-                    Usuario: <t t-esc="widget.pos.get_cashier().name"/><br/>
-                    <t t-if="employee_id">
-                        Empleado: <span t-field="o.employee_id.name"/><br/>
+                    <t t-esc="widget.pos.company.name"/><br/>
+                    NIT: <t t-esc="widget.pos.company.vat"/><br/>
+                    <t t-if="receipt.header">
+                        <div style='text-align:center'>
+                            <t t-esc="receipt.header" />
+                        </div>
+                        <br/>
+                    </t>
+                    <t t-if="widget.pos.sale_journal_address">
+                        <t t-esc="widget.pos.sale_journal_address.name"/><br/>
+                        <t t-esc="widget.pos.sale_journal_address.street"/><br/>
                     </t>
                     <br/>
-                    NIT: <t t-esc="order.get_client().vat ? order.get_client().vat : 'CF'"/><br/>
-                    Nombre: <t t-esc="order.get_client().name"/><br/>
-                    Dirección: <span t-field="order.get_client().street"/><br/>
-                </div>
-                <table class='receipt-orderlines'>
-                    <colgroup>
-                        <col width='40%' />
-                        <col width='25%' />
-                        <col width='25%' />
-                    </colgroup>
-                    <tr t-foreach="orderlines" t-as="orderline">
-                        <td>
-                            <t t-esc="orderline.get_product().display_name"/>
-                            <t t-if="orderline.get_discount() > 0">
-                                <div class="pos-disc-font">
-                                    With a <t t-esc="orderline.get_discount()"/>% discount
-                                </div>
-                            </t>
-                            <div class="linea_extras">
-                                <t t-if="orderline.get_note &amp;&amp; orderline.get_note()">
-                                    <span t-esc="orderline.get_note()"/>
+                    Documento Tributario Electrónico FEL<br/>
+                    Factura Electrónica<br/>
+                    Serie: <t t-esc="order.serie_fel || ''"/><br/>
+                    Número: <t t-esc="order.numero_fel || ''"/><br/>
+                    <br/>
+                    <div class="datos_factura">
+                        Fecha: <t t-esc="order.formatted_validation_date"/><br/>
+                        Usuario: <t t-esc="widget.pos.get_cashier().name"/><br/>
+                        <t t-if="employee_id">
+                            Empleado: <span t-field="o.employee_id.name"/><br/>
+                        </t>
+                        <br/>
+                        NIT: <t t-esc="order.get_client().vat ? order.get_client().vat : 'CF'"/><br/>
+                        Nombre: <t t-esc="order.get_client().name"/><br/>
+                        Dirección: <span t-field="order.get_client().street"/><br/>
+                    </div>
+                    <table class='receipt-orderlines'>
+                        <colgroup>
+                            <col width='40%' />
+                            <col width='25%' />
+                            <col width='25%' />
+                        </colgroup>
+                        <tr t-foreach="orderlines" t-as="orderline">
+                            <td>
+                                <t t-esc="orderline.get_product().display_name"/>
+                                <t t-if="orderline.get_discount() > 0">
+                                    <div class="pos-disc-font">
+                                        With a <t t-esc="orderline.get_discount()"/>% discount
+                                    </div>
                                 </t>
-                                <t t-if="orderline.pack_lot_lines">
-                                    <t t-foreach="orderline.pack_lot_lines.models" t-as="linea">
-                                        <span t-esc="linea.attributes['lot_name']"/><br/>
+                                <div class="linea_extras">
+                                    <t t-if="orderline.get_note &amp;&amp; orderline.get_note()">
+                                        <span t-esc="orderline.get_note()"/>
                                     </t>
-                                </t>
-                            </div>
-                        </td>
-                        <td class="pos-right-align">
-                            <t t-esc="orderline.get_quantity_str_with_unit()"/>
-                        </td>
-                        <td class="pos-right-align">
-                            <t t-esc="widget.format_currency(orderline.get_display_price())"/>
-                        </td>
-                    </tr>
-                </table>
-                <br/>
-                <table class='receipt-total'>
-                    <colgroup>
-                        <col width='40%' />
-                        <col width='40%' />
-                    </colgroup>
-                    <tr class="emph">
-                        <td>Total:</td>
-                        <td class="pos-right-align">
-                            <t t-esc="widget.format_currency(order.get_total_with_tax())"/>
-                        </td>
-                    </tr>
-                </table>
-                <br/>
-                <table class='receipt-paymentlines'>
-                    <t t-foreach="paymentlines" t-as="line">
+                                    <t t-if="orderline.pack_lot_lines">
+                                        <t t-foreach="orderline.pack_lot_lines.models" t-as="linea">
+                                            <span t-esc="linea.attributes['lot_name']"/><br/>
+                                        </t>
+                                    </t>
+                                </div>
+                            </td>
+                            <td class="pos-right-align">
+                                <t t-esc="orderline.get_quantity_str_with_unit()"/>
+                            </td>
+                            <td class="pos-right-align">
+                                <t t-esc="widget.format_currency(orderline.get_display_price())"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table class='receipt-total'>
+                        <colgroup>
+                            <col width='40%' />
+                            <col width='40%' />
+                        </colgroup>
+                        <tr class="emph">
+                            <td>Total:</td>
+                            <td class="pos-right-align">
+                                <t t-esc="widget.format_currency(order.get_total_with_tax())"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table class='receipt-paymentlines'>
+                        <t t-foreach="paymentlines" t-as="line">
+                            <colgroup>
+                                <col width='40%' />
+                                <col width='40%' />
+                            </colgroup>
+                            <tr>
+                                <td>
+                                    <t t-esc="line.name"/>
+                                </td>
+                                <td class="pos-right-align">
+                                    <t t-esc="widget.format_currency(line.get_amount())"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+                    <br/>
+                    <table class='receipt-change'>
                         <colgroup>
                             <col width='40%' />
                             <col width='40%' />
                         </colgroup>
                         <tr>
-                            <td>
-                                <t t-esc="line.name"/>
-                            </td>
+                            <td>Cambio:</td>
                             <td class="pos-right-align">
-                                <t t-esc="widget.format_currency(line.get_amount())"/>
+                                <t t-esc="widget.format_currency(order.get_change())"/>
                             </td>
                         </tr>
+                    </table>
+                    Sujeto a pagos trimestrales ISR<br/>
+                    Agente de Retención del IVA<br/>
+                    Certificador<br/>
+                    INFILE, S.A.<br/>
+                    NIT: 12521337<br/>
+                    Autorización: <t t-esc="order.firma_fel || ''"/><br/>
+                    Fecha Certificación: <t t-esc="order.formatted_validation_date"/>
+                    <t t-esc="order.name"/><br/>
+                    <t t-if="receipt.footer">
+                        <br/>
+                        <div style='text-align:center'>
+                            <t t-esc="receipt.footer" />
+                        </div>
                     </t>
-                </table>
-                <br/>
-                <table class='receipt-change'>
-                    <colgroup>
-                        <col width='40%' />
-                        <col width='40%' />
-                    </colgroup>
-                    <tr>
-                        <td>Cambio:</td>
-                        <td class="pos-right-align">
-                            <t t-esc="widget.format_currency(order.get_change())"/>
-                        </td>
-                    </tr>
-                </table>
-                Sujeto a pagos trimestrales ISR<br/>
-                Agente de Retención del IVA<br/>
-                Certificador<br/>
-                INFILE, S.A.<br/>
-                NIT: 12521337<br/>
-                Autorización: <t t-esc="order.firma_fel || ''"/><br/>
-                Fecha Certificación: <t t-esc="order.formatted_validation_date"/>
-                <t t-esc="order.name"/><br/>
-                <t t-if="receipt.footer">
-                    <br/>
-                    <div style='text-align:center'>
-                        <t t-esc="receipt.footer" />
-                    </div>
+                    
                 </t>
             </div>
         </t>
