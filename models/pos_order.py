@@ -15,7 +15,7 @@ class PosOrder(models.Model):
         res = super(PosOrder, self)._action_create_invoice_line(line,invoice_id)
         if line.pack_lot_ids:
             lotes = [linea.lot_name for linea in line.pack_lot_ids]
-            separador = ' '
+            separador = ', '
             conjunto_lotes = separador.join(lotes)
             res.write({'name':  res.name +' '+str(conjunto_lotes)})
         return res
