@@ -21,8 +21,10 @@
                         <t t-esc="widget.pos.sale_journal_address.street"/><br/>
                     </t>
                     <br/>
-                    Documento Tributario Electrónico FEL<br/>
-                    Factura Electrónica<br/>
+                    <t t-if="order.firma_fel">
+                        Documento Tributario Electrónico FEL<br/>
+                        Factura Electrónica<br/>
+                    </t>
                     Serie: <t t-esc="order.serie_fel || ''"/><br/>
                     Número: <t t-esc="order.numero_fel || ''"/><br/>
                     <br/>
@@ -113,13 +115,15 @@
                             </td>
                         </tr>
                     </table>
-                    Sujeto a pagos trimestrales ISR<br/>
-                    Agente de Retención del IVA<br/>
-                    Certificador<br/>
-                    INFILE, S.A.<br/>
-                    NIT: 12521337<br/>
-                    Autorización: <t t-esc="order.firma_fel || ''"/><br/>
-                    Fecha Certificación: <t t-esc="order.formatted_validation_date"/>
+                    <t t-if="order.firma_fel">
+                        Sujeto a pagos trimestrales ISR<br/>
+                        Agente de Retención del IVA<br/>
+                        Certificador<br/>
+                        INFILE, S.A.<br/>
+                        NIT: 12521337<br/>
+                        Autorización: <t t-esc="order.firma_fel || ''"/><br/>
+                        Fecha Certificación: <t t-esc="order.formatted_validation_date"/>
+                    </t>
                     <t t-esc="order.name"/><br/>
                     <t t-if="receipt.footer">
                         <br/>
@@ -127,7 +131,7 @@
                             <t t-esc="receipt.footer" />
                         </div>
                     </t>
-                    
+
                 </t>
             </div>
         </t>
