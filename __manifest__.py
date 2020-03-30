@@ -9,7 +9,7 @@
     'summary': 'Point of Sale unido a facturacion electrónica',
     'description': """ Cambios al Punto de Venta para obtener PDF desde interfaz touch """,
     'author': 'Rodrigo Fernandez',
-    'depends': ['point_of_sale', 'account'],
+    'depends': ['point_of_sale', 'l10n_gt_extra'],
     'data': [
         'views/report.xml',
         'views/pos_order_ticket.xml',

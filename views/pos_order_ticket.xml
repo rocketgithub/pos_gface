@@ -26,7 +26,7 @@
                             Número: <span t-field="o.numero_fel"/><br/>
                             <br/>
                             Fecha: <span t-field="o.date_order"/><br/>
-                            Usuario: <span t-field="o.user_id.name"/><br/>
+                            Empleado: <span t-field="o.user_id.name"/><br/>
                             <br/>
                             <t>
                                 NIT: <span t-field="o.partner_id.vat"/><br/>
