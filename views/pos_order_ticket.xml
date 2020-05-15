@@ -11,6 +11,11 @@
 
                             <span t-field="o.config_id.name"/><br/>
                             <br/>
+                            <t t-if="o.company_id.logo">
+                                <p class="text-center">
+                                    <img  t-att-src="image_data_uri(o.company_id.logo)" style="width: 10em"/>
+                                </p>
+                            </t>                            
                             <span t-field="o.company_id.name"/><br/>
                             NIT: <span t-field="o.company_id.vat"/><br/>
                             <t t-if="o.config_id.receipt_header">
@@ -94,7 +99,7 @@
                                 <tr>
                                     <td>Cambio:</td>
                                     <td class="pos-right-align">
-                                        <span t-esc="0.00" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: user.company_id.currency_id}"/>
+                                        <span t-esc="0.00" t-options="{'widget': 'monetary', 'display_currency': user.company_id.currency_id}"/>
                                     </td>
                                 </tr>
                             </table>

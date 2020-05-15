@@ -41,6 +41,7 @@ models.PosModel = models.PosModel.extend({
                                 self.get_order().firma_fel = orders[0].firma_fel
                                 self.get_order().serie_fel = orders[0].serie_fel
                                 self.get_order().numero_fel = orders[0].numero_fel
+                                
                                 invoiced.resolve();
                                 done.resolve();
                             }

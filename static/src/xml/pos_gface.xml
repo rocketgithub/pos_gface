@@ -8,6 +8,9 @@
 
                     <t t-esc="widget.pos.config.name"/><br/>
                     <br/>
+                    <t t-if='receipt.company.logo'>
+                        <img class="pos-receipt-logo" t-att-src='receipt.company.logo' alt="Logo"/>
+                    </t>                    
                     <t t-esc="widget.pos.company.name"/><br/>
                     NIT: <t t-esc="widget.pos.company.vat"/><br/>
                     <t t-if="receipt.header">
@@ -24,9 +27,9 @@
                     <t t-if="order.firma_fel">
                         Documento Tributario Electrónico FEL<br/>
                         Factura Electrónica<br/>
+                        Serie: <t t-esc="order.serie_fel || ''"/><br/>
+                        Número: <t t-esc="order.numero_fel || ''"/><br/>
                     </t>
-                    Serie: <t t-esc="order.serie_fel || ''"/><br/>
-                    Número: <t t-esc="order.numero_fel || ''"/><br/>
                     <br/>
                     <div class="datos_factura">
                         Fecha: <t t-esc="order.formatted_validation_date"/><br/>
