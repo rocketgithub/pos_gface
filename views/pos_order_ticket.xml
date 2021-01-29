@@ -13,7 +13,7 @@
                             <br/>
                             <t t-if="o.company_id.logo">
                                 <p class="text-center">
-                                    <img  t-att-src="image_data_uri(o.company_id.logo)" style="width: 10em"/>
+                                    <img t-att-src="'data:image/png;base64,%s' % to_text(o.company_id.logo)"  style="width: 10em"/>
                                 </p>
                             </t>                            
                             <span t-field="o.company_id.name"/><br/>
