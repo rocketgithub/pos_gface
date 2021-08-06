@@ -122,7 +122,6 @@
                     </table>
                     <t t-if="order.firma_fel">
                         Sujeto a pagos trimestrales ISR<br/>
-                        Agente de Retención del IVA<br/>
                         Certificador<br/>
                         INFILE, S.A.<br/>
                         NIT: 12521337<br/>
